@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Ajar Interaktif: Arsitektur Teks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+        body { font-family: 'Nunito', sans-serif; background-color: #f8fafc; }
+        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .draggable { cursor: grab; }
+        .draggable:active { cursor: grabbing; }
+        .drop-zone { border: 2px dashed #0ea5e9; transition: all 0.3s ease; }
+        .drop-zone.hover { background-color: #e0f2fe; border-color: #0284c7; }
+        .drop-zone.error { background-color: #fee2e2; border-color: #ef4444; }
+        .quiz-option { cursor: pointer; transition: all 0.2s; }
+        .quiz-option:hover { background-color: #f1f5f9; border-color: #cbd5e1; }
+        .quiz-option.selected { background-color: #e0f2fe; border-color: #38bdf8; box-shadow: 0 0 0 2px #38bdf8; }
+        .quiz-option.correct { background-color: #dcfce7; border-color: #22c55e; color: #166534; }
+        .quiz-option.wrong { background-color: #fee2e2; border-color: #ef4444; color: #991b1b; }
+    </style>
+</head>
+<body class="text-slate-800 pb-12">
+
+    <nav class="bg-teal-600 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="font-extrabold text-xl md:text-2xl flex items-center">
+                    <i class="fas fa-layer-group text-amber-300 mr-2"></i> Ruang Pintar
+                </div>
+                <div class="flex space-x-2 md:space-x-4 overflow-x-auto">
+                    <button onclick="switchTab('materi')" id="tab-materi" class="nav-btn bg-teal-800 px-4 py-2 rounded-xl font-bold text-sm md:text-base transition hover:bg-teal-700"><i class="fas fa-book-open mr-1"></i> Materi</button>
+                    <button onclick="switchTab('bermain')" id="tab-bermain" class="nav-btn bg-teal-500 px-4 py-2 rounded-xl font-bold text-sm md:text-base transition hover:bg-teal-700"><i class="fas fa-puzzle-piece mr-1"></i> Bermain</button>
+                    <button onclick="switchTab('evaluasi')" id="tab-evaluasi" class="nav-btn bg-teal-500 px-4 py-2 rounded-xl font-bold text-sm md:text-base transition hover:bg-teal-700"><i class="fas fa-clipboard-check mr-1"></i> Evaluasi</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-4 mt-8">
+        <!-- LAYER 1: MATERI -->
+        <section id="layer-materi" class="layer-section fade-in block">
+            <div class="bg-white rounded-3xl shadow-xl p-8 border-t-8 border-teal-500">
+                <div class="text-center mb-10">
+                    <h1 class="text-3xl md:text-4xl font-extrabold text-slate-800 mb-4">Menyusun Bagan Kerangka Teks</h1>
+                    <p class="text-lg text-slate-600">Mari belajar menjadi "Arsitek Teks" dengan menemukan gagasan pokok!</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                    <div class="bg-amber-50 p-6 rounded-2xl border border-amber-200">
+                        <h3 class="text-xl font-bold text-amber-700 mb-3"><i class="fas fa-lightbulb mr-2"></i> Apa itu Gagasan Pokok?</h3>
+                        <p class="text-slate-700 leading-relaxed text-justify">Gagasan pokok adalah ide utama atau inti pembicaraan dalam sebuah paragraf. Menemukan gagasan pokok ibarat mencari pondasi utama dari sebuah bangunan rumah.</p>
+                    </div>
+                    <div class="bg-blue-50 p-6 rounded-2xl border border-blue-200">
+                        <h3 class="text-xl font-bold text-blue-700 mb-3"><i class="fas fa-sitemap mr-2"></i> Apa itu Bagan Kerangka?</h3>
+                        <p class="text-slate-700 leading-relaxed text-justify">Setelah menemukan gagasan pokok, kita menyusunnya menjadi <strong>bagan visual</strong> agar teks yang panjang bisa dipahami dengan cepat hanya dengan melihat alur bagannya.</p>
+                    </div>
+                </div>
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                    <h3 class="text-lg font-bold text-slate-700 mb-4 text-center">Teks Observasi: Manfaat Mangrove</h3>
+                    <div class="space-y-3 text-sm md:text-base text-slate-700">
+                        <p><span class="font-bold text-teal-600 bg-teal-100 px-2 rounded mr-2">Paragraf 1:</span> Hutan mangrove memiliki peran vital. Salah satu fungsi utamanya adalah sebagai <strong>benteng alami abrasi laut</strong>. Akar pohonnya mampu menahan ombak...</p>
+                        <p><span class="font-bold text-teal-600 bg-teal-100 px-2 rounded mr-2">Paragraf 2:</span> Selain mencegah abrasi, mangrove juga menjadi <strong>tempat tinggal yang ideal bagi berbagai jenis biota laut</strong>. Ikan kecil sering berlindung di area akar...</p>
+                        <p><span class="font-bold text-teal-600 bg-teal-100 px-2 rounded mr-2">Paragraf 3:</span> Tidak kalah penting, ekosistem mangrove juga berfungsi sebagai <strong>penyerap karbon yang sangat efektif</strong>. Tanaman ini menyerap gas karbon dioksida...</p>
+                    </div>
+                </div>
+                <div class="mt-8 text-center">
+                    <button onclick="switchTab('bermain')" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition transform hover:scale-105">Lanjut ke Ruang Bermain <i class="fas fa-arrow-right ml-2"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- LAYER 2: BERMAIN -->
+        <section id="layer-bermain" class="layer-section fade-in hidden">
+            <div class="bg-white rounded-3xl shadow-xl p-8 border-t-8 border-amber-400">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-extrabold text-slate-800 mb-2"><i class="fas fa-puzzle-piece text-amber-500 mr-2"></i> Susun Bagan Kerangka</h2>
+                    <p class="text-slate-600">Tarik kotak gagasan pokok di bawah ini ke tempat yang tepat!</p>
+                </div>
+                <div class="flex flex-col md:flex-row gap-8">
+                    <div class="md:w-1/3 flex flex-col gap-4 bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                        <h4 class="font-bold text-slate-700 text-center mb-2">Gagasan Pokok</h4>
+                        <div class="draggable bg-emerald-100 border-2 border-emerald-400 p-3 rounded-xl shadow-sm text-center font-bold text-emerald-800 flex items-center justify-center gap-2" draggable="true" data-id="p3"><i class="fas fa-globe-americas"></i> Penyerap karbon efektif</div>
+                        <div class="draggable bg-blue-100 border-2 border-blue-400 p-3 rounded-xl shadow-sm text-center font-bold text-blue-800 flex items-center justify-center gap-2" draggable="true" data-id="p1"><i class="fas fa-water"></i> Benteng alami abrasi laut</div>
+                        <div class="draggable bg-rose-100 border-2 border-rose-400 p-3 rounded-xl shadow-sm text-center font-bold text-rose-800 flex items-center justify-center gap-2" draggable="true" data-id="p2"><i class="fas fa-fish"></i> Tempat tinggal biota laut</div>
+                    </div>
+                    <div class="md:w-2/3 flex flex-col items-center p-6 bg-sky-50 rounded-2xl border border-sky-100">
+                        <div class="bg-slate-800 text-white py-3 px-8 rounded-full font-bold shadow-md z-10 w-full md:w-auto text-center">Topik: Manfaat Mangrove</div>
+                        <div class="w-1 h-8 bg-slate-300"></div>
+                        <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="flex flex-col items-center w-full">
+                                <span class="text-sm font-bold text-slate-500 mb-2">Paragraf 1</span>
+                                <div class="drop-zone w-full p-4 rounded-xl flex items-center justify-center min-h-[100px] bg-white text-slate-400 font-semibold text-center text-sm" data-target="p1">Tarik ke sini</div>
+                            </div>
+                            <div class="flex flex-col items-center w-full">
+                                <span class="text-sm font-bold text-slate-500 mb-2">Paragraf 2</span>
+                                <div class="drop-zone w-full p-4 rounded-xl flex items-center justify-center min-h-[100px] bg-white text-slate-400 font-semibold text-center text-sm" data-target="p2">Tarik ke sini</div>
+                            </div>
+                            <div class="flex flex-col items-center w-full">
+                                <span class="text-sm font-bold text-slate-500 mb-2">Paragraf 3</span>
+                                <div class="drop-zone w-full p-4 rounded-xl flex items-center justify-center min-h-[100px] bg-white text-slate-400 font-semibold text-center text-sm" data-target="p3">Tarik ke sini</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="drag-feedback" class="mt-6 text-center p-4 rounded-xl hidden transition-all duration-500"></div>
+                <div class="text-center mt-6 hidden" id="btn-next-kuis">
+                    <button onclick="switchTab('evaluasi')" class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition transform hover:scale-105">Lanjut ke Evaluasi <i class="fas fa-arrow-right ml-2"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- LAYER 3: EVALUASI -->
+        <section id="layer-evaluasi" class="layer-section fade-in hidden">
+            <div class="bg-white rounded-3xl shadow-xl p-8 border-t-8 border-rose-500 max-w-3xl mx-auto">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-extrabold text-slate-800 mb-2"><i class="fas fa-clipboard-check text-rose-500 mr-2"></i> Kuis Evaluasi</h2>
+                    <p class="text-slate-600">Uji pemahamanmu tentang materi ini.</p>
+                </div>
+
+                <div id="quiz-container" class="space-y-8"></div>
+
+                <div class="mt-8 pt-6 border-t border-slate-200 text-center flex flex-col items-center">
+                    <input type="text" id="nama-siswa" placeholder="Masukkan Nama Lengkap" class="mb-4 px-4 py-3 border-2 border-slate-300 rounded-xl w-full max-w-sm focus:outline-none focus:border-rose-500 text-center text-lg font-bold" required>
+                    <button id="submit-quiz" onclick="checkQuiz()" class="bg-rose-500 hover:bg-rose-600 text-white font-bold py-3 px-10 rounded-full shadow-lg transition">Kirim & Cek Nilai!</button>
+                    <p id="loading-text" class="hidden mt-3 text-slate-500 font-bold animate-pulse">Menyimpan nilai ke Spreadsheet...</p>
+                </div>
+
+                <div id="quiz-result" class="mt-8 p-6 rounded-2xl hidden text-center">
+                    <h3 class="text-2xl font-bold mb-2" id="result-title"></h3>
+                    <p class="text-lg" id="result-desc"></p>
+                    <button onclick="resetQuiz()" class="mt-4 border-2 border-slate-300 text-slate-600 font-bold py-2 px-6 rounded-full hover:bg-slate-100 transition">Ulangi Kuis</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Tab Navigasi
+        function switchTab(tabName) {
+            document.querySelectorAll('.layer-section').forEach(layer => { layer.classList.add('hidden'); layer.classList.remove('block'); });
+            document.querySelectorAll('.nav-btn').forEach(btn => { btn.classList.remove('bg-teal-800'); btn.classList.add('bg-teal-500'); });
+            document.getElementById('layer-' + tabName).classList.remove('hidden');
+            document.getElementById('layer-' + tabName).classList.add('block');
+            document.getElementById('tab-' + tabName).classList.remove('bg-teal-500');
+            document.getElementById('tab-' + tabName).classList.add('bg-teal-800');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Drag & Drop
+        const draggables = document.querySelectorAll('.draggable');
+        const dropZones = document.querySelectorAll('.drop-zone');
+        let dragCorrectCount = 0;
+
+        draggables.forEach(draggable => {
+            draggable.addEventListener('dragstart', () => { draggable.classList.add('opacity-50'); draggable.setAttribute('id', 'dragging'); });
+            draggable.addEventListener('dragend', () => { draggable.classList.remove('opacity-50'); draggable.removeAttribute('id'); });
+        });
+
+        dropZones.forEach(zone => {
+            zone.addEventListener('dragover', e => { e.preventDefault(); if(zone.children.length === 0 || !zone.children[0].classList.contains('draggable')) zone.classList.add('hover'); });
+            zone.addEventListener('dragleave', () => zone.classList.remove('hover', 'error'));
+            zone.addEventListener('drop', e => {
+                e.preventDefault(); zone.classList.remove('hover');
+                const dragging = document.querySelector('#dragging');
+                if (!dragging) return;
+
+                if (zone.getAttribute('data-target') === dragging.getAttribute('data-id')) {
+                    zone.innerHTML = ''; zone.appendChild(dragging);
+                    zone.classList.replace('border-dashed', 'border-solid'); zone.style.borderColor = 'transparent';
+                    dragging.setAttribute('draggable', 'false');
+                    dragging.className = "w-full h-full m-0 p-3 rounded-xl shadow-sm text-center font-bold flex items-center justify-center gap-2 bg-slate-100 text-slate-800 border-2 border-slate-300";
+                    dragCorrectCount++;
+                    if (dragCorrectCount === 3) {
+                        const fb = document.getElementById('drag-feedback');
+                        fb.innerHTML = '<i class="fas fa-check-circle text-emerald-500 text-3xl mb-2 block animate-bounce"></i> <strong class="text-xl">Sempurna!</strong> Bagan berhasil disusun.';
+                        fb.className = "mt-6 text-center p-4 rounded-xl bg-emerald-100 text-emerald-800 border border-emerald-300 fade-in block";
+                        document.getElementById('btn-next-kuis').classList.remove('hidden');
+                    }
+                } else {
+                    zone.classList.add('error'); setTimeout(() => zone.classList.remove('error'), 500);
+                }
+            });
+        });
+
+        // Kuis & Google Sheets
+        const quizData = [
+            { q: "1. Apa yang dimaksud dengan gagasan pokok?", options: ["Ide utama pembicaraan dalam sebuah paragraf", "Kesimpulan dari seluruh buku teks", "Informasi tambahan", "Kumpulan kata tanpa makna"], answer: 0 },
+            { q: "2. Mengapa kita perlu membuat bagan kerangka teks?", options: ["Agar teks terlihat panjang", "Untuk menghias buku", "Agar struktur teks mudah dipahami visual", "Syarat menebang mangrove"], answer: 2 },
+            { q: "3. Apa gagasan pokok paragraf pertama?", options: ["Mangrove tempat tinggal udang", "Mangrove berfungsi sebagai benteng alami abrasi", "Mangrove menyerap karbon", "Nelayan mencari ikan"], answer: 1 }
+        ];
+
+        const quizContainer = document.getElementById('quiz-container');
+        let userAnswers = new Array(quizData.length).fill(null);
+
+        function renderQuiz() {
+            quizContainer.innerHTML = '';
+            quizData.forEach((soal, qIndex) => {
+                const soalDiv = document.createElement('div');
+                soalDiv.className = "mb-6";
+                let optionsHtml = '';
+                soal.options.forEach((opt, oIndex) => {
+                    optionsHtml += `<div class="quiz-option border-2 border-slate-200 rounded-xl p-3 mb-2 font-medium text-slate-700" onclick="selectOption(${qIndex}, ${oIndex})" id="opt-${qIndex}-${oIndex}">${String.fromCharCode(65 + oIndex)}. ${opt}</div>`;
+                });
+                soalDiv.innerHTML = `<h3 class="font-bold text-lg text-slate-800 mb-3">${soal.q}</h3><div class="options-container flex flex-col">${optionsHtml}</div>`;
+                quizContainer.appendChild(soalDiv);
+            });
+        }
+
+        function selectOption(qIndex, oIndex) {
+            userAnswers[qIndex] = oIndex;
+            for(let i = 0; i < quizData[qIndex].options.length; i++) document.getElementById(`opt-${qIndex}-${i}`).classList.remove('selected', 'bg-e0f2fe', 'border-38bdf8');
+            document.getElementById(`opt-${qIndex}-${oIndex}`).classList.add('selected');
+        }
+
+        function checkQuiz() {
+            const namaSiswa = document.getElementById('nama-siswa').value;
+            if(!namaSiswa) return alert("Nama tidak boleh kosong!");
+            if(userAnswers.includes(null)) return alert("Harap jawab semua soal terlebih dahulu!");
+
+            const btnSubmit = document.getElementById('submit-quiz');
+            const textLoading = document.getElementById('loading-text');
+            btnSubmit.classList.add('hidden');
+            textLoading.classList.remove('hidden');
+
+            let score = 0;
+            quizData.forEach((soal, qIndex) => {
+                const selected = userAnswers[qIndex];
+                if (selected === soal.answer) score++;
+                for(let i=0; i<soal.options.length; i++) document.getElementById(`opt-${qIndex}-${i}`).style.pointerEvents = 'none';
+            });
+
+            const nilaiAkhir = Math.round((score / quizData.length) * 100);
+
+            // GANTI URL DI BAWAH INI DENGAN URL GOOGLE APPS SCRIPT ANDA
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbzy-mLRBXxiBkmMcUh2ygSvgQKAKBbZMUA04Vhj4HYkl96wat-OVHvu1fGjF_TPcGYu/exec'; 
+            
+            const formData = new URLSearchParams();
+            formData.append('nama', namaSiswa);
+            formData.append('nilai', nilaiAkhir);
+
+            fetch(scriptURL, { method: 'POST', body: formData })
+                .then(response => {
+                    textLoading.classList.add('hidden');
+                    tampilkanHasil(nilaiAkhir);
+                })
+                .catch(error => {
+                    alert('Gagal mengirim nilai. Periksa koneksi internet.');
+                    btnSubmit.classList.remove('hidden'); textLoading.classList.add('hidden');
+                });
+        }
+
+        function tampilkanHasil(nilai) {
+            const resultBox = document.getElementById('quiz-result');
+            resultBox.classList.remove('hidden'); resultBox.classList.add('block', 'fade-in');
+            if(nilai === 100) {
+                resultBox.className = "mt-8 p-6 rounded-2xl text-center bg-emerald-100 text-emerald-800 border border-emerald-300 fade-in block";
+                document.getElementById('result-title').innerHTML = "🏆 Luar Biasa! Nilai: 100";
+                document.getElementById('result-desc').innerText = "Kamu sudah menguasai materi dengan sangat baik.";
+            } else {
+                resultBox.className = "mt-8 p-6 rounded-2xl text-center bg-amber-100 text-amber-800 border border-amber-300 fade-in block";
+                document.getElementById('result-title').innerHTML = `👍 Semangat! Nilai: ${nilai}`;
+                document.getElementById('result-desc').innerText = "Mari tingkatkan lagi pemahamanmu ya.";
+            }
+        }
+
+        function resetQuiz() {
+            userAnswers = new Array(quizData.length).fill(null);
+            document.getElementById('nama-siswa').value = '';
+            document.getElementById('submit-quiz').classList.remove('hidden');
+            document.getElementById('quiz-result').classList.add('hidden');
+            renderQuiz();
+        }
+
+        renderQuiz();
+    </script>
+</body>
+</html>
